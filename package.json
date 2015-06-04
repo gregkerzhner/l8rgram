@@ -43,6 +43,10 @@
     "reactify":"*",
     "gulp-streamify":"*",
     "vinyl-source-stream":"*",
-    "browserify":"*"
+    "browserify":"*",
+    "lodash":"*",
+    "fs":"*",
+    "bower-resolve":"*",
+    "resolve":"*"
   }
 }
