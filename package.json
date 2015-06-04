@@ -48,6 +48,7 @@
     "fs":"*",
     "bower-resolve":"*",
     "resolve":"*",
-    "flux":"*"
+    "flux":"*",
+    "react":"*"
   }
 }
