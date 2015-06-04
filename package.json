@@ -1,6 +1,7 @@
 {
   "name": "l8rgram",
   "version": "0.0.1",
+  "private": true,
   "dependencies": {},
   "devDependencies": {
     "gulp":"*",
@@ -10,7 +11,7 @@
     "gulp-concat":"*",
     "gulp-concat-vendor":"*",
     "gulp-ignore":"*",
-    "gulp-less":"*",
+    "gulp-sass":"*",
     "gulp-ng-constant":"*",
     "run-sequence":"*",
     "gulp-template":"*",
@@ -18,10 +19,23 @@
     "gulp-rename":"*" ,
     "gulp-clean":"*",
     "gulp-uglify":"*",
+    "gulp-ng-annotate":"*",
     "gulp-minify-css":"*",
     "gulp-shell": "*",
+    "gulp-cloudfront": "*",
+    "gulp-ng-annotate":"*",
     "gulp-minify-css":"*",
     "gulp-gzip":"*",
-    "gulp-run":"*"
+    "gulp-run":"*",
+    "gulp-minify-css":"*",
+    "gulp-uncache":"*",
+    "karma":"*",
+    "karma-jasmine": "~0.2.0",
+    "karma-phantomjs-launcher":"*",
+    "phantomjs":"*",
+    "protractor":"1.6.0",
+    "gulp-protractor":"0.0.12",
+    "gulp-selenium":"*",
+    "gulp-exit":"*"
   }
 }
