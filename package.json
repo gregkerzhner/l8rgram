@@ -36,6 +36,8 @@
     "protractor":"1.6.0",
     "gulp-protractor":"0.0.12",
     "gulp-selenium":"*",
-    "gulp-exit":"*"
+    "gulp-exit":"*",
+    "gulp-react":"*",
+    "gulp-html-replace":"*"
   }
 }

@@ -9,7 +9,9 @@ var gulp = require('gulp'),
   gzip = require('gulp-gzip'),
   minifyCSS = require('gulp-minify-css'),
   template = require('gulp-template'),
-  sass = require('gulp-sass');
+  sass = require('gulp-sass'),
+  react = require('gulp-react'),
+  htmlreplace = require('gulp-html-replace');
 
 
 var vendorJs = [
@@ -18,6 +20,7 @@ var vendorJs = [
 
 gulp.task('appScripts', function() {
   return gulp.src(['app/scripts/**/*.js'])
+    .pipe(react())
     .pipe(concat('app-scripts.js'))
     .pipe(gulp.dest('dist/scripts'))
 });
