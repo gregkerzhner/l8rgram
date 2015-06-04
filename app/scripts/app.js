@@ -1,2 +1,3 @@
 var React = require('react'); 
-var upload = require('./upload/upload-container');
+var UploadContainer= require('./upload/upload-container');
+React.render(<UploadContainer />, document.getElementById('app'));
