@@ -33,7 +33,7 @@ var vendorJs = [
 ]
 
 var vendorStyles = [
-  'vendor/bootstrap/dist/css/bootstrap.css'
+  'app/vendor/bootstrap/dist/css/bootstrap.css'
 ]
 
 
