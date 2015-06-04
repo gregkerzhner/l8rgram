@@ -1,6 +1,7 @@
 var React = require('react');
 var uploadStore = require('../stores/upload-store');
 var uploadActions = require('../actions/upload-actions');
+var ItemsList = require('./items-list');
 
 var UploadContainer = React.createClass({
   getInitialState: function(){
@@ -29,7 +30,8 @@ var UploadContainer = React.createClass({
     return (
       <div className="col-sm-6 col-md-offset-3">
         <div className="col-sm-12">
-          <h3 className="text-center"> Upload</h3>
+          <h3 className="text-center"> Upload </h3>
+          <ItemsList items={this.state.list} />
         </div>
       </div>
     )

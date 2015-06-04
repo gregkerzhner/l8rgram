@@ -90,7 +90,7 @@ gulp.task('webserver', function() {
 
 
 var production = (process.env.NODE_ENV === 'production');
-
+/*
 
 gulp.task('build-vendor', function () {
 
@@ -169,9 +169,6 @@ gulp.task('build-app', function () {
 
 });
 
-/**
- * Helper function(s)
- */
 
 function getBowerPackageIds() {
   // read bower.json and get dependencies' package ids
@@ -198,9 +195,44 @@ function getNPMPackageIds() {
 
 }
 
+*/
+
+function scripts(watch) {
+  var bundler, rebundle;
+  bundler = browserify('app/scripts/app.js', {
+    basedir: __dirname, 
+    debug: !production, 
+    cache: {}, // required for watchify
+    packageCache: {}, // required for watchify
+    fullPaths: watch // required to be true only for watchify
+  });
+  if(watch) {
+    bundler = watchify(bundler) 
+  }
+ 
+  bundler.transform(reactify);
+ 
+  rebundle = function() {
+    var stream = bundler.bundle();
+    stream = stream.pipe(source('bundle.js'));
+    return stream.pipe(gulp.dest('dist/scripts'));
+  };
+ 
+  bundler.on('update', rebundle);
+  return rebundle();
+}
+
+gulp.task('scripts', function() {
+  return scripts(false);
+});
+ 
+gulp.task('watchScripts', function() {
+  return scripts(true);
+});
+
 
 gulp.task('watch', function(){
-  gulp.watch('app/scripts/**/*.js', ['build-app']);
+  gulp.watch('app/scripts/**/*.js', ['watchScripts']);
 
   /*
   var watcher  = watchify(browserify({
@@ -228,7 +260,7 @@ gulp.task('watch', function(){
 })
 
 gulp.task('default', function(){
-  runSequence('clean', 'build-vendor', 'build-app', 'appStyles', 'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
+  runSequence('clean', 'appStyles', 'scripts', 'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
     console.log('Dev started');
   });
 });
