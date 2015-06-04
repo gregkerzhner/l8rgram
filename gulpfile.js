@@ -28,7 +28,8 @@ var nodeResolve = require('resolve');
 
 
 var vendorJs = [
-  'app/vendor/react/react.js'
+  'app/vendor/react/react.js',
+  'app/vendor/flux/dist/Flux.js'
 ]
 
 var vendorStyles = [
@@ -156,11 +157,12 @@ gulp.task('build-app', function () {
     b.external(id);
   });
 
+  b.transform(reactify);
+
   var stream = b.bundle().pipe(source('app.js'));
 
   // pipe additional tasks here (for eg: minifying / uglifying, etc)
   // remember to turn off name-mangling if needed when uglifying
-
   stream.pipe(gulp.dest('./dist/scripts'));
 
   return stream;

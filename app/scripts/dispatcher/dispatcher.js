@@ -1,4 +1,4 @@
-var Dispatcher = require('flux').Dispatcher;
+var Dispatcher = require('Flux').Dispatcher;
 
 var AppDispatcher = new Dispatcher();
 

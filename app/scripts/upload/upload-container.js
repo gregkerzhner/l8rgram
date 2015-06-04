@@ -1,28 +1,28 @@
 var React = require('react');
-var todoStore = require('../stores/todoStore');
-var todoActions = require('../actions/todoActions');
+var uploadStore = require('../stores/upload-store');
+var uploadActions = require('../actions/upload-actions');
 
-var ListContainer = React.createClass({
+var UploadContainer = React.createClass({
   getInitialState: function(){
     return {
-      list: todoStore.getList()
+      list: uploadStore.getList()
     }
   },
   componentDidMount: function(){
-    todoStore.addChangeListener(this._onChange);
+    uploadStore.addChangeListener(this._onChange);
   },
   componentWillUnmount: function(){
-    todoStore.removeChangeListener(this._onChange);
+    uploadStore.removeChangeListener(this._onChange);
   },
   handleAddItem: function(newItem){
-    todoActions.addItem(newItem);
+    uploadActions.addItem(newItem);
   },
   handleRemoveItem: function(index){
-    todoActions.removeItem(index);
+    uploadActions.removeItem(index);
   },
   _onChange: function(){
     this.setState({
-      list: todoStore.getList()
+      list: uploadStore.getList()
     })
   },
   render: function(){
@@ -30,12 +30,10 @@ var ListContainer = React.createClass({
       <div className="col-sm-6 col-md-offset-3">
         <div className="col-sm-12">
           <h3 className="text-center"> Todo List </h3>
-          <AddItem add={this.handleAddItem}/>
-          <List items={this.state.list} remove={this.handleRemoveItem}/>
         </div>
       </div>
     )
   }
 });
 
-module.exports = ListContainer;
+module.exports = UploadContainer;
