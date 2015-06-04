@@ -1,0 +1,27 @@
+{
+  "name": "l8rgram",
+  "version": "0.0.1",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp":"*",
+    "gulp-connect":"*",
+    "gulp-preprocess":"*",  
+    "gulp-html2js":"*",
+    "gulp-concat":"*",
+    "gulp-concat-vendor":"*",
+    "gulp-ignore":"*",
+    "gulp-less":"*",
+    "gulp-ng-constant":"*",
+    "run-sequence":"*",
+    "gulp-template":"*",
+    "gulp-awspublish":"*",
+    "gulp-rename":"*" ,
+    "gulp-clean":"*",
+    "gulp-uglify":"*",
+    "gulp-minify-css":"*",
+    "gulp-shell": "*",
+    "gulp-minify-css":"*",
+    "gulp-gzip":"*",
+    "gulp-run":"*"
+  }
+}
