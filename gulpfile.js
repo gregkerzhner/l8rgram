@@ -11,7 +11,12 @@ var gulp = require('gulp'),
   template = require('gulp-template'),
   sass = require('gulp-sass'),
   react = require('gulp-react'),
-  htmlreplace = require('gulp-html-replace');
+  htmlreplace = require('gulp-html-replace'),
+  source = require('vinyl-source-stream'),
+  browserify = require('browserify'),
+  watchify = require('watchify'),
+  reactify = require('reactify'),
+  streamify = require('gulp-streamify');
 
 
 var vendorJs = [
@@ -73,14 +78,48 @@ gulp.task('webserver', function() {
   });
 });
 
+
+/*
+
+var path = {
+  HTML: 'src/index.html',
+  MINIFIED_OUT: 'build.min.js',
+  OUT: 'build.js',
+  DEST: 'dist',
+  DEST_BUILD: 'dist/build',
+  DEST_SRC: 'dist/src',
+  ENTRY_POINT: './src/js/App.js'
+};
+*/
+
 gulp.task('watch', function(){
-  gulp.watch('app/scripts/**/*.js', ['appScripts']);
+  //gulp.watch('app/scripts/**/*.js', ['appScripts']);
+  var watcher  = watchify(browserify({
+    entries: ['app/scripts/app.js'],
+    transform: [reactify],
+    debug: true,
+    cache: {}, packageCache: {}, fullPaths: true
+  }));
+
+  return watcher.on('update', function () {
+    watcher.bundle()
+      .pipe(source('app-scripts.js'))
+      .pipe(gulp.dest('dist'))
+      console.log('Updated');
+  })
+    .bundle()
+    .pipe(source('app-scripts.js'))
+    .pipe(gulp.dest('dist'));
+
+
+
+
   gulp.watch('app/styles/**/*.scss', ['appStyles']);
   gulp.watch('app/_index.html', ['indexDev']);
 })
 
 gulp.task('default', function(){
-  runSequence('clean','appScripts', 'vendorScripts', 'appStyles', 'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
+  runSequence('clean', 'vendorScripts', 'appStyles', 'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
     console.log('Dev started');
   });
 });

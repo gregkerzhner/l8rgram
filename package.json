@@ -38,6 +38,11 @@
     "gulp-selenium":"*",
     "gulp-exit":"*",
     "gulp-react":"*",
-    "gulp-html-replace":"*"
+    "gulp-html-replace":"*",
+    "watchify":"*",
+    "reactify":"*",
+    "gulp-streamify":"*",
+    "vinyl-source-stream":"*",
+    "browserify":"*"
   }
 }
