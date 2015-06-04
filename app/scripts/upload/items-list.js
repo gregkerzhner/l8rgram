@@ -7,8 +7,7 @@ var ItemList = React.createClass({
         <span>{item}</span>
       )
     }.bind(this));
-
-     return (
+    return (
       <ul >
         {listItems}
       </ul>
