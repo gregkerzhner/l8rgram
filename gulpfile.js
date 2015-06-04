@@ -12,12 +12,22 @@ var gulp = require('gulp'),
   sass = require('gulp-sass');
 
 
+var vendorJs = [
+  'vendor/react/react.js'
+]
+
 gulp.task('appScripts', function() {
   return gulp.src(['app/scripts/**/*.js'])
     .pipe(concat('app-scripts.js'))
     .pipe(gulp.dest('dist/scripts'))
 });
 
+
+gulp.task('vendorScripts', function() {
+  return gulp.src(vendorJs)
+  .pipe(concat('vendor-scripts.js'))
+  .pipe(gulp.dest('dist/scripts'));
+});
 
 gulp.task('appStyles', function () {  
   return gulp.src('app/styles/**/*.scss')
@@ -37,6 +47,17 @@ gulp.task('indexDev', function() {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('clean', function(){
+  return gulp.src(['dist'], {read:false})
+  .pipe(clean());
+});
+
+gulp.task('webserver', function() {
+  connect.server({
+    root: 'dist',
+    port: 8100
+  });
+});
 
 gulp.task('watch', function(){
   gulp.watch('app/scripts/**/*.js', ['appScripts']);
@@ -45,7 +66,7 @@ gulp.task('watch', function(){
 })
 
 gulp.task('default', function(){
-  runSequence('appScripts', 'appStyles','indexDev',  'watch', function() {
+  runSequence('clean','appScripts', 'vendorScripts', 'appStyles','indexDev', 'watch', 'webserver',function() {
     console.log('Dev started');
   });
 });

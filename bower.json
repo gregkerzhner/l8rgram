@@ -1,0 +1,7 @@
+{
+  "name": "l8rgram",
+  "version": "0.0.1",
+  "dependencies": {
+    "react": "0.13.3"
+  }
+}
