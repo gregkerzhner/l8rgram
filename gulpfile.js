@@ -18,6 +18,11 @@ var vendorJs = [
   'vendor/react/react.js'
 ]
 
+var vendorStyles = [
+  'vendor/bootstrap/dist/css/bootstrap.css'
+]
+
+
 gulp.task('appScripts', function() {
   return gulp.src(['app/scripts/**/*.js'])
     .pipe(react())
@@ -31,6 +36,12 @@ gulp.task('vendorScripts', function() {
   .pipe(concat('vendor-scripts.js'))
   .pipe(gulp.dest('dist/scripts'));
 });
+
+gulp.task('vendorStyles', function(){
+  return gulp.src(vendorStyles)
+  .pipe(concat('vendor-styles.css'))
+  .pipe(gulp.dest('dist/css'));
+})
 
 gulp.task('appStyles', function () {  
   return gulp.src('app/styles/**/*.scss')
@@ -65,11 +76,11 @@ gulp.task('webserver', function() {
 gulp.task('watch', function(){
   gulp.watch('app/scripts/**/*.js', ['appScripts']);
   gulp.watch('app/styles/**/*.scss', ['appStyles']);
-  gulp.watch('app/_index.html', ['index-dev']);
+  gulp.watch('app/_index.html', ['indexDev']);
 })
 
 gulp.task('default', function(){
-  runSequence('clean','appScripts', 'vendorScripts', 'appStyles','indexDev', 'watch', 'webserver',function() {
+  runSequence('clean','appScripts', 'vendorScripts', 'appStyles', 'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
     console.log('Dev started');
   });
 });
