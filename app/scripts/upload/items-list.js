@@ -4,7 +4,9 @@ var ItemList = React.createClass({
   render: function(){
     var listItems = this.props.items.map(function(item, index){
       return (
-        <span>{item}</span>
+        <li>
+          <span>{item}</span>
+        </li>
       )
     }.bind(this));
     return (

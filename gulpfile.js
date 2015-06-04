@@ -88,9 +88,6 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('watch', function(){
-  gulp.watch('app/scripts/**/*.js', ['watchScripts']);
-
-
   var watcher  = watchify(browserify({
     entries: ['app/scripts/app.js'],
     transform: [reactify],
