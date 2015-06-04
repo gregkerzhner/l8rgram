@@ -87,154 +87,10 @@ gulp.task('webserver', function() {
   });
 });
 
-
-
-var production = (process.env.NODE_ENV === 'production');
-/*
-
-gulp.task('build-vendor', function () {
-
-  // this task will go through ./bower.json and
-  // uses bower-resolve to resolve its full path.
-  // the full path will then be added to the bundle using require()
-
-  var b = browserify({
-    // generate source maps in non-production environment
-    debug: !production
-  });
-
-  // get all bower components ids and use 'bower-resolve' to resolve
-  // the ids to their full path, which we need for require()
-  getBowerPackageIds().forEach(function (id) {
-
-    var resolvedPath = bowerResolve.fastReadSync(id);
-
-    b.require(resolvedPath, {
-
-      // exposes the package id, so that we can require() from our code.
-      // for eg:
-      // require('./vendor/angular/angular.js', {expose: 'angular'}) enables require('angular');
-      // for more information: https://github.com/substack/node-browserify#brequirefile-opts
-      expose: id
-
-    });
-  });
-
-  // do the similar thing, but for npm-managed modules.
-  // resolve path using 'resolve' module
-  getNPMPackageIds().forEach(function (id) {
-    b.require(nodeResolve.sync(id), { expose: id });
-  });
-
-  var stream = b.bundle().pipe(source('vendor-scripts.js'));
-
-  // pipe additional tasks here (for eg: minifying / uglifying, etc)
-  // remember to turn off name-mangling if needed when uglifying
-
-  stream.pipe(gulp.dest('./dist/scripts'));
-
-  return stream;
-});
-
-gulp.task('build-app', function () {
-
-  var b = browserify('app/scripts/app.js', {
-    // generate source maps in non-production environment
-    debug: !production
-  });
-
-  // mark vendor libraries defined in bower.json as an external library,
-  // so that it does not get bundled with app.js.
-  // instead, we will load vendor libraries from vendor.js bundle
-  getBowerPackageIds().forEach(function (lib) {
-    b.external(lib);
-  });
-
-
-  // do the similar thing, but for npm-managed modules.
-  // resolve path using 'resolve' module
-  getNPMPackageIds().forEach(function (id) {
-    b.external(id);
-  });
-
-  b.transform(reactify);
-
-  var stream = b.bundle().pipe(source('app.js'));
-
-  // pipe additional tasks here (for eg: minifying / uglifying, etc)
-  // remember to turn off name-mangling if needed when uglifying
-  stream.pipe(gulp.dest('./dist/scripts'));
-
-  return stream;
-
-});
-
-
-function getBowerPackageIds() {
-  // read bower.json and get dependencies' package ids
-  var bowerManifest = {};
-  try {
-    bowerManifest = require('./bower.json');
-  } catch (e) {
-    // does not have a bower.json manifest
-  }
-  return _.keys(bowerManifest.dependencies) || [];
-
-}
-
-
-function getNPMPackageIds() {
-  // read package.json and get dependencies' package ids
-  var packageManifest = {};
-  try {
-    packageManifest = require('./package.json');
-  } catch (e) {
-    // does not have a package.json manifest
-  }
-  return _.keys(packageManifest.dependencies) || [];
-
-}
-
-*/
-
-function scripts(watch) {
-  var bundler, rebundle;
-  bundler = browserify('app/scripts/app.js', {
-    basedir: __dirname, 
-    debug: !production, 
-    cache: {}, // required for watchify
-    packageCache: {}, // required for watchify
-    fullPaths: watch // required to be true only for watchify
-  });
-  if(watch) {
-    bundler = watchify(bundler) 
-  }
- 
-  bundler.transform(reactify);
- 
-  rebundle = function() {
-    var stream = bundler.bundle();
-    stream = stream.pipe(source('bundle.js'));
-    return stream.pipe(gulp.dest('dist/scripts'));
-  };
- 
-  bundler.on('update', rebundle);
-  return rebundle();
-}
-
-gulp.task('scripts', function() {
-  return scripts(false);
-});
- 
-gulp.task('watchScripts', function() {
-  return scripts(true);
-});
-
-
 gulp.task('watch', function(){
   gulp.watch('app/scripts/**/*.js', ['watchScripts']);
 
-  /*
+
   var watcher  = watchify(browserify({
     entries: ['app/scripts/app.js'],
     transform: [reactify],
@@ -245,14 +101,14 @@ gulp.task('watch', function(){
   return watcher.on('update', function () {
     watcher.bundle()
       .pipe(source('app-scripts.js'))
-      .pipe(gulp.dest('dist'))
+      .pipe(gulp.dest('dist/scripts'))
       console.log('Updated');
   })
     .bundle()
     .pipe(source('app-scripts.js'))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/scripts'));
 
-  */
+  
 
 
   gulp.watch('app/styles/**/*.scss', ['appStyles']);
@@ -260,7 +116,7 @@ gulp.task('watch', function(){
 })
 
 gulp.task('default', function(){
-  runSequence('clean', 'appStyles', 'scripts', 'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
+  runSequence('clean', 'appStyles',  'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
     console.log('Dev started');
   });
 });
