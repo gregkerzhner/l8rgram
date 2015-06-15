@@ -50,6 +50,7 @@
     "resolve":"*",
     "flux":"*",
     "react":"*",
-    "react-router":"*"
+    "react-router":"*",
+    "react-bootstrap":"*"
   }
 }
