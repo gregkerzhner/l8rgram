@@ -4,6 +4,7 @@ var RouteHandler = Router.RouteHandler;
 var Navbar = require('react-bootstrap').Navbar;
 var Nav = require('react-bootstrap').Nav;
 var NavItem = require('react-bootstrap').NavItem;
+var auth = require('./models/auth');
 
 var AppContainer = React.createClass({
   getInitialState: function(){
