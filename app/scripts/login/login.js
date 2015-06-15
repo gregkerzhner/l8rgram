@@ -1,5 +1,6 @@
 var React = require('react');
 var Input = require('react-bootstrap').Input;
+var Auth = require('../models/j-toker');
 
 var Login = React.createClass({
   getInitialState: function(){
@@ -12,7 +13,13 @@ var Login = React.createClass({
 
   },
   handleClick: function(){
-    alert("HI")
+     Auth.oAuthSignIn({provider: 'instagram'})
+    .then(function(user) {
+      alert('Welcome ' + user.name + '!');
+    })
+    .fail(function(resp) {
+      alert('Authentication failure: ' + resp.errors.join(' '));
+    });
   },
   render: function(){
     return (
