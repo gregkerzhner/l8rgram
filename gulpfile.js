@@ -16,7 +16,8 @@ var gulp = require('gulp'),
   browserify = require('browserify'),
   watchify = require('watchify'),
   reactify = require('reactify'),
-  streamify = require('gulp-streamify');
+  streamify = require('gulp-streamify'),
+  chmod = require('gulp-chmod');
 
 var _ = require('lodash');
 var fs = require('fs');
@@ -25,6 +26,11 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var bowerResolve = require('bower-resolve');
 var nodeResolve = require('resolve');
+
+
+var otherAssets = [
+  './app/images/**/*.*'  
+];
 
 var vendorStyles = [
   'app/vendor/bootstrap/dist/css/bootstrap.css'
@@ -36,6 +42,12 @@ gulp.task('appScripts', function() {
     .pipe(react())
     .pipe(concat('app-scripts.js'))
     .pipe(gulp.dest('dist/scripts'))
+});
+
+gulp.task('move',['clean'], function(){
+  return gulp.src(otherAssets, { base: './app/' })
+    .pipe(chmod(755))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('vendorStyles', function(){
@@ -103,7 +115,7 @@ gulp.task('watch', function(){
 })
 
 gulp.task('default', function(){
-  runSequence('clean', 'appStyles',  'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
+  runSequence('clean', 'move', 'appStyles',  'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
     console.log('Dev started');
   });
 });

@@ -1,4 +1,5 @@
 var React = require('react');
+var Input = require('react-bootstrap').Input;
 
 var Login = React.createClass({
   getInitialState: function(){
@@ -21,8 +22,10 @@ var Login = React.createClass({
   },
   render: function(){
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <h3>Hey there</h3>
+      <div className="row">
+        <div className="col-md-8 col-md-offset-2">
+          <img src="images/instagram.png"></img>
+        </div>
       </div>
     )
   }
