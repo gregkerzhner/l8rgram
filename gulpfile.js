@@ -87,11 +87,17 @@ gulp.task('watch', function(){
 
   return watcher.on('update', function () {
     watcher.bundle()
+      .on("error", function(err) {
+        console.log("Browserify error:", err);
+      })
       .pipe(source('app-scripts.js'))
       .pipe(gulp.dest('dist/scripts'))
       console.log('Updated');
   })
     .bundle()
+    .on("error", function(err) {
+      console.log("Browserify error:", err);
+    })
     .pipe(source('app-scripts.js'))
     .pipe(gulp.dest('dist/scripts'));
 })
