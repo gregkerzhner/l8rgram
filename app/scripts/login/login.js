@@ -21,8 +21,8 @@ var Login = React.createClass({
   },
   render: function(){
     return (
-      <div className="col-sm-6 col-md-offset-3">
-        login
+      <div className="col-md-6 col-md-offset-3">
+        <h3>Hey there</h3>
       </div>
     )
   }
