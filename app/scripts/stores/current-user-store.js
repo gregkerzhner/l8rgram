@@ -4,7 +4,7 @@ var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatcher/dispatcher');
  
 var _store = {
-  currentUser: null
+  currentUser: {}
 };
 
 var setCurrentUser = function(user){
@@ -12,7 +12,7 @@ var setCurrentUser = function(user){
 };
 
 var destroyCurrentUser = function(){
-  _store.currentUser = null
+  _store.currentUser = {};
 }
 
 var currentUserStore = objectAssign({}, EventEmitter.prototype, {
@@ -32,11 +32,11 @@ AppDispatcher.register(function(payload){
   switch(action.actionType){
     case appConstants.SET_CURRENT_USER:
       setCurrentUser(action.data);
-      uploadStore.emit(appConstants.CHANGE_EVENT);
+      currentUserStore.emit(appConstants.CHANGE_EVENT);
       break;
     case appConstants.DESTROY_CURRENT_USER:
       destroyCurrentUser();
-      uploadStore.emit(appConstants.CHANGE_EVENT);
+      currentUserStore.emit(appConstants.CHANGE_EVENT);
       break;
     default:
       return true;
