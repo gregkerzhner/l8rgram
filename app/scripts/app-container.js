@@ -21,6 +21,7 @@ var AppContainer = React.createClass({
     this.setState({currentUser: currentUserStore.currentUser()})
   },
   render: function(){
+    console.log('Render called');
     return (
       <div>
         <Navbar brand='l8rgram' inverse toggleNavKey={0}>
