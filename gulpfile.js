@@ -26,12 +26,6 @@ var source = require('vinyl-source-stream');
 var bowerResolve = require('bower-resolve');
 var nodeResolve = require('resolve');
 
-
-var vendorJs = [
-  'app/vendor/react/react.js',
-  'app/vendor/flux/dist/Flux.js'
-]
-
 var vendorStyles = [
   'app/vendor/bootstrap/dist/css/bootstrap.css'
 ]
@@ -42,13 +36,6 @@ gulp.task('appScripts', function() {
     .pipe(react())
     .pipe(concat('app-scripts.js'))
     .pipe(gulp.dest('dist/scripts'))
-});
-
-
-gulp.task('vendorScripts', function() {
-  return gulp.src(vendorJs)
-  .pipe(concat('vendor-scripts.js'))
-  .pipe(gulp.dest('dist/scripts'));
 });
 
 gulp.task('vendorStyles', function(){
@@ -83,11 +70,14 @@ gulp.task('clean', function(){
 gulp.task('webserver', function() {
   connect.server({
     root: 'dist',
-    port: 8100
+    port: 9000
   });
 });
 
 gulp.task('watch', function(){
+  gulp.watch('app/styles/**/*.scss', ['appStyles']);
+  gulp.watch('app/_index.html', ['indexDev']);
+
   var watcher  = watchify(browserify({
     entries: ['app/scripts/app.js'],
     transform: [reactify],
@@ -104,12 +94,6 @@ gulp.task('watch', function(){
     .bundle()
     .pipe(source('app-scripts.js'))
     .pipe(gulp.dest('dist/scripts'));
-
-  
-
-
-  gulp.watch('app/styles/**/*.scss', ['appStyles']);
-  gulp.watch('app/_index.html', ['indexDev']);
 })
 
 gulp.task('default', function(){

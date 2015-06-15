@@ -49,6 +49,7 @@
     "bower-resolve":"*",
     "resolve":"*",
     "flux":"*",
-    "react":"*"
+    "react":"*",
+    "react-router":"*"
   }
 }
