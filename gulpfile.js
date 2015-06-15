@@ -62,7 +62,7 @@ gulp.task('appStyles', function () {
 
     }))
     .pipe(concat('app-styles.css'))
-    .pipe(gulp.dest('dist/styles'))
+    .pipe(gulp.dest('dist/css'))
 });
 
 gulp.task('indexDev', function() {

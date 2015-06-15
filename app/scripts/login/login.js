@@ -11,20 +11,14 @@ var Login = React.createClass({
   componentWillUnmount: function(){
 
   },
-  handleAddItem: function(newItem){
-
-  },
-  handleRemoveItem: function(index){
-
-  },
-  _onChange: function(){
-
+  handleClick: function(){
+    alert("HI")
   },
   render: function(){
     return (
       <div className="row">
         <div className="col-md-8 col-md-offset-2">
-          <img src="images/instagram.png"></img>
+          <img className="instagram-login-img" src="images/instagram.png" onClick={this.handleClick}></img>
         </div>
       </div>
     )
