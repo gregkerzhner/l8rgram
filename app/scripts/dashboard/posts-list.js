@@ -1,14 +1,13 @@
 var React = require('react');
-var PostsList = require('./posts-list');
-var PostsStore = require('../stores/posts-store');
-var PostActions = require('../actions/post-actions');
 
-var Dashboard = React.createClass({
+var PostsList = React.createClass({
   getInitialState: function(){
-    return PostsStore.getAll()
+    return {
+      
+    }
   },
   componentDidMount: function(){
-    PostActions.getList();
+    
   },
   componentWillUnmount: function(){
     
@@ -25,7 +24,7 @@ var Dashboard = React.createClass({
           <h3>Dashboard</h3>
           <div className="row">
             <div className="col-md-6">
-              <PostsList posts={this.state}/>
+
             </div>
             <div className="col-md-6">
 
@@ -37,4 +36,4 @@ var Dashboard = React.createClass({
   }
 });
 
-module.exports = Dashboard;
+module.exports = PostsList;

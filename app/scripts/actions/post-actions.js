@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatcher/dispatcher');
 var appConstants = require('../constants/constants');
+var PostsApi = require('../models/posts-api');
 
 var postActions = {
   addItem: function(item){
@@ -13,6 +14,9 @@ var postActions = {
       actionType: appConstants.REMOVE_ITEM,
       data: index
     })
+  },
+  getList: function(){
+    PostsApi.getList();
   }
 };
 

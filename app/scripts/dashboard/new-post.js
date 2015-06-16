@@ -3,6 +3,7 @@ var React = require('react');
 var NewPost = React.createClass({
   getInitialState: function(){
     return {
+      
     }
   },
   componentDidMount: function(){

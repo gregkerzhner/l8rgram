@@ -4,7 +4,10 @@ var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatcher/dispatcher');
  
 var _store = {
-  list: []
+  data: {
+    list: [],
+    state: appConstants.ready
+  }
 };
 
 var addItem = function(item){
@@ -15,6 +18,10 @@ var removeItem = function(index){
   _store.list.splice(index, 1);
 }
 
+var setState = function(state){
+  this.store.state = state;
+}
+
 var postsStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(appConstants.CHANGE_EVENT, cb);
@@ -22,25 +29,22 @@ var postsStore = objectAssign({}, EventEmitter.prototype, {
   removeChangeListener: function(cb){
     this.removeListener(appConstants.CHANGE_EVENT, cb);
   },
-  getList: function(){
-    return _store.list;
-  },
+  getAll: function(){
+    return _store.data;
+  }
 });
 
 AppDispatcher.register(function(payload){
   var action = payload.action;
   switch(action.actionType){
-    case appConstants.ADD_ITEM:
-      addItem(action.data);
-      postsStore.emit(appConstants.CHANGE_EVENT);
-      break;
-    case appConstants.REMOVE_ITEM:
-      removeItem(action.data);
-      postsStore.emit(appConstants.CHANGE_EVENT);
+    case appConstants.GET_POSTS_LIST:
+      setState(action.data.status);
       break;
     default:
       return true;
   }
+
+  postsStore.emit(appConstants.CHANGE_EVENT);
 });
 
 module.exports = postsStore;
