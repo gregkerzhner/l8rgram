@@ -1,6 +1,7 @@
 var config = require('../l8rgram-config');
 var request = require('superagent');
 var AppDispatcher = require('../dispatcher/dispatcher');
+var appConstants = require('../constants/constants');
 /*
 cases: 
 
@@ -21,7 +22,6 @@ record deleting
 var PostsApi = {
   //make this return promises to action module
   getList: function(){
-
     //possibly pass request here
     AppDispatcher.handleAction({
       actionType: appConstants.GET_POSTS_LIST,

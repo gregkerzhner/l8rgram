@@ -20,6 +20,8 @@ Auth.configure({
   }
 });
 
+debugger
+
 Router.run(routes, Router.HistoryLocation, function (Handler, state) {
     React.render(<Handler/>, document.body);
 });
