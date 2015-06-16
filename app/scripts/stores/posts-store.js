@@ -15,7 +15,7 @@ var removeItem = function(index){
   _store.list.splice(index, 1);
 }
 
-var uploadStore = objectAssign({}, EventEmitter.prototype, {
+var postsStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(appConstants.CHANGE_EVENT, cb);
   },
@@ -32,15 +32,15 @@ AppDispatcher.register(function(payload){
   switch(action.actionType){
     case appConstants.ADD_ITEM:
       addItem(action.data);
-      uploadStore.emit(appConstants.CHANGE_EVENT);
+      postsStore.emit(appConstants.CHANGE_EVENT);
       break;
     case appConstants.REMOVE_ITEM:
       removeItem(action.data);
-      uploadStore.emit(appConstants.CHANGE_EVENT);
+      postsStore.emit(appConstants.CHANGE_EVENT);
       break;
     default:
       return true;
   }
 });
 
-module.exports = uploadStore;
+module.exports = postsStore;

@@ -1,7 +1,7 @@
 var AppDispatcher = require('../dispatcher/dispatcher');
 var appConstants = require('../constants/constants');
 
-var uploadActions = {
+var postActions = {
   addItem: function(item){
     AppDispatcher.handleAction({
       actionType: appConstants.ADD_ITEM,
@@ -16,4 +16,4 @@ var uploadActions = {
   }
 };
 
-module.exports = uploadActions;
+module.exports = postActions;

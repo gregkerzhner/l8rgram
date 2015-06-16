@@ -39,6 +39,7 @@ var vendorStyles = [
 
 gulp.task('appScripts', function() {
   return gulp.src(['app/scripts/**/*.js'])
+    .pipe(template({backendUrl: "http://ama-lab.dev"}))
     .pipe(react())
     .pipe(concat('app-scripts.js'))
     .pipe(gulp.dest('dist/scripts'))
@@ -86,6 +87,12 @@ gulp.task('webserver', function() {
   });
 });
 
+gulp.task('configDev', function(){
+   return gulp.src('app/l8rgram-config.js')
+    .pipe(template({backendUrl: "http://ama-lab.dev"}))
+    .pipe(gulp.dest('dist/scripts'));
+})
+
 gulp.task('watch', function(){
   gulp.watch('app/styles/**/*.scss', ['appStyles']);
   gulp.watch('app/_index.html', ['indexDev']);
@@ -115,7 +122,7 @@ gulp.task('watch', function(){
 })
 
 gulp.task('default', function(){
-  runSequence('clean', 'move', 'appStyles',  'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
+  runSequence('clean', 'move', 'configDev', 'appStyles',  'vendorStyles', 'indexDev', 'watch', 'webserver',function() {
     console.log('Dev started');
   });
 });
